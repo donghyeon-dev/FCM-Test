@@ -34,8 +34,12 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
     // 받은 메세지에서 title과 body를 추출한다
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
-        Log.d(TAG,"remoteMessage is " + remoteMessage);
-
+        Log.d(TAG,"remoteMessage 한글써보자 씨빨 " + remoteMessage);
+        try {
+            Log.d(TAG,"remoteMessage Encode is " + URLDecoder.decode(remoteMessage.getNotification().getTitle(),"EUC-KR"));
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
         // TODO(developer): Handle FCM messages here.
         Log.d(TAG, "From: " + remoteMessage.getFrom());
 
@@ -49,7 +53,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         }
 
         if (remoteMessage.getNotification() != null) {
-            Log.d(TAG, "Message Notification Title: " + remoteMessage.getNotification().getTitle());
+            Log.d(TAG, "Message Notification Title: " + (remoteMessage.getNotification().getTitle()));
             Log.d(TAG, "Message Notification Body: " + remoteMessage.getNotification().getBody());
             try {
                 sendNotification(remoteMessage.getNotification().getTitle(), remoteMessage.getNotification().getBody());
@@ -76,10 +80,10 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         Uri defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
 
         NotificationCompat.Builder notificationBuilder =
-                new NotificationCompat.Builder(this, channelId)
-                        .setSmallIcon(R.mipmap.ic_launcher)
-                        .setContentTitle(URLDecoder.decode(messageTitle, "UTF-8"))
-                        .setContentText(URLDecoder.decode(messageBody, "UTF-8"))
+                    new NotificationCompat.Builder(this, channelId)
+                        .setSmallIcon(R.mipmap.ic_launcher_round)
+                        .setContentTitle(URLDecoder.decode(messageTitle,"UTF-8"))
+                        .setContentText(URLDecoder.decode(messageBody,"UTF-8"))
                         .setAutoCancel(true)
                         .setSound(defaultSoundUri)
                         .setContentIntent(pendingIntent);
@@ -88,7 +92,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             String channelName = getString(R.string.default_notification_channel_name);
-            NotificationChannel channel = new NotificationChannel(channelId, channelName, NotificationManager.IMPORTANCE_HIGH);
+            NotificationChannel channel = new NotificationChannel(channelId, channelName, NotificationManager.IMPORTANCE_DEFAULT);
             notificationManager.createNotificationChannel(channel);
         }
         notificationManager.notify(0, notificationBuilder.build());
