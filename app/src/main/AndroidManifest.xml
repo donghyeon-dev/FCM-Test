@@ -4,6 +4,13 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
 
+    <!-- '알림' 커스텀 퍼미션 정의 -->
+    <permission
+        android:name="com.hfad.testfcm.NOTIFICATION"
+        android:label="@string/permission_label"
+        android:description="@string/permission_desc"
+        android:protectionLevel="dangerous"/>
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"

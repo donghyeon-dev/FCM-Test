@@ -7,19 +7,12 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.media.MediaPlayer;
-import android.media.RingtoneManager;
-import android.net.Uri;
 import android.os.Build;
 import android.util.Log;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
-import androidx.core.app.NotificationCompat;
-
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
-
-import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 
 
@@ -38,6 +31,9 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
     public void onNewToken(@NonNull String token) {
         Log.d(TAG, "Refreshed Token is :" + token);
         super.onNewToken(token);
+
+//        sendRegistrationToServer(refreshedToken);
+
     }
 
 

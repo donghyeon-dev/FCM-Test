@@ -2,4 +2,6 @@
     <string name="app_name">testFcm</string>
     <string name="default_notification_channel_id">Channel ID</string>
     <string name="default_notification_channel_name" translatable="true">Test</string>
+    <string name="permission_label">커스텀 알림</string>
+    <string name="permission_desc">어플에서 제공하는 알림의 동의 여부</string>
 </resources>
